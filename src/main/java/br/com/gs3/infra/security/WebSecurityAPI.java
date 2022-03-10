@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -19,7 +20,7 @@ import br.com.gs3.infra.service.TokenService;
 
 @EnableWebSecurity
 @Configuration
-public class WebSecurity extends WebSecurityConfigurerAdapter {
+public class WebSecurityAPI extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private TokenService tokenService;
@@ -36,6 +37,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
             .antMatchers(HttpMethod.POST, "/login").permitAll()
+            .antMatchers("/h2-console/**").permitAll()
+            .antMatchers("/h2/**").permitAll()
     		.anyRequest().authenticated()
     		.and().csrf().disable()
     		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -65,5 +68,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	protected UserDetailsService userDetailsService() {
 		return super.userDetailsService();
 	}
-
+	
+	@Override
+	public void configure(WebSecurity web)
+			throws Exception {
+		 web.ignoring().antMatchers("/h2-console/**")
+		 .antMatchers("/h2/**");
+	}
 }

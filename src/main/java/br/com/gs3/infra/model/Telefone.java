@@ -11,8 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "telefone")
@@ -23,11 +21,9 @@ public class Telefone{
 	private Long id;
 	
 	@Column(name = "num_ddd", nullable = false, length = 2)
-	private String ddd;
+	private Integer ddd;
 	
-	@Column(name = "num_telefone", nullable = false)
-	@Min(value = 8, message = "Número de telefone inválido")
-	@Max(value = 9, message = "Número de telefone inválido")
+	@Column(name = "num_telefone", nullable = false, length = 9)
 	private Integer numTelefone;
 
 	@Enumerated(EnumType.STRING)
@@ -40,11 +36,11 @@ public class Telefone{
 	@Version
 	private Long versao;
 
-	public String getDdd() {
+	public Integer getDdd() {
 		return ddd;
 	}
 
-	public void setDdd(String ddd) {
+	public void setDdd(Integer ddd) {
 		this.ddd = ddd;
 	}
 

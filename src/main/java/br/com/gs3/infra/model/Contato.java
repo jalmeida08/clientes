@@ -3,6 +3,7 @@ package br.com.gs3.infra.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,10 +24,10 @@ public class Contato {
 	@OneToOne
 	private Pessoa pessoa;
 	
-	@OneToMany(mappedBy = "contato")
+	@OneToMany(mappedBy = "contato", cascade = CascadeType.ALL)
 	private List<Email> email = new ArrayList<Email>();
 	
-	@OneToMany(mappedBy = "contato")
+	@OneToMany(mappedBy = "contato", cascade = CascadeType.ALL)
 	private List<Telefone> telefone = new ArrayList<Telefone>();
 	
 	@Version
