@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
 import br.com.gs3.api.form.NovoEmailForm;
+import br.com.gs3.api.form.NovoEnderecoForm;
 import br.com.gs3.api.form.NovoTelefoneForm;
 import br.com.gs3.infra.model.Contato;
 import br.com.gs3.infra.model.Email;
@@ -25,6 +26,8 @@ public class NovaPessoaForm {
 	@CPF(message = "Número de CPF inválido")
 	@Length(message = "CPF INCORRETO")
 	private String cpf;
+
+	private NovoEnderecoForm endereco;
 	
 	@Size(min = 1)
 	private List<NovoTelefoneForm> listaTelefone = new ArrayList<NovoTelefoneForm>();
@@ -37,6 +40,8 @@ public class NovaPessoaForm {
 		p.setCpf(Long.valueOf(this.cpf));
 		p.setNome(this.nome);
 		p.setContato(toContato(p));
+		if(endereco != null)
+			p.setEndereco(endereco.toEndereco(p));
 		return p;
 	}
 	
@@ -67,6 +72,10 @@ public class NovaPessoaForm {
 
 	public void setListaEmail(List<NovoEmailForm> listaEmail) {
 		this.listaEmail = listaEmail;
+	}
+
+	public void setEndereco(NovoEnderecoForm endereco) {
+		this.endereco = endereco;
 	}
 
 	@Override

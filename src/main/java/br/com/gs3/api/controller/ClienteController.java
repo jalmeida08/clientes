@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.gs3.api.form.NovoEnderecoForm;
 import br.com.gs3.api.form.pessoa.NovaPessoaForm;
 import br.com.gs3.api.service.ClienteService;
 
@@ -26,13 +28,20 @@ public class ClienteController {
 	@PostMapping
 	@Transactional
 	public ResponseEntity<?> adicionaPessoa(@RequestBody @Valid NovaPessoaForm pessoaForm) {
-		System.out.println(pessoaForm.toString());
 		this.clienteService.salvaDadosCliente(pessoaForm);
 		return ResponseEntity.ok("Sucesso");
+	}
+	
+	@PostMapping("/{idCliente}/endereco")
+	@Transactional
+	public ResponseEntity<?> adicionaEnderecoCliente(@PathVariable("idCliente") Long idCliente, @RequestBody NovoEnderecoForm enderecoForm) {
+		this.clienteService.adicionaEndereco(idCliente, enderecoForm);
+		return ResponseEntity.ok().build();
 	}
 	
 	@GetMapping
 	public ResponseEntity<?> listaDadosCliente(){
 		return ResponseEntity.ok(this.clienteService.listaDadosCliente());
 	}
+	
 }
