@@ -24,7 +24,13 @@ public class ClienteService {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
-	
+
+
+	public Pessoa getCliente(Long idCliente) {
+		if(idCliente == null )
+			throw new ParametroNaoInformadoException("É obrigatóri que informe o parametro do cliente");
+		return clienteRepository.findById(idCliente).orElseThrow(() -> new DadosNaoEncontradoException());
+	}
 	
 	public void salvaDadosCliente(NovaPessoaForm pessoaForm) {
 		this.clienteRepository.save(pessoaForm.toPessoa());
@@ -33,20 +39,25 @@ public class ClienteService {
 	public List<ClienteDTO> listaDadosCliente() {
 		List<Pessoa> findAll = this.clienteRepository.findAll();
 		return findAll.stream().map(ClienteDTO::new).collect(Collectors.toList());
-		
 	}
+	
+//	public List<ClienteDTO> buscaDadoCliente() {
+//		List<Pessoa> findAll = this.clienteRepository.buscaDadoCliente();
+//		return findAll.stream().map(ClienteDTO::new).collect(Collectors.toList());
+//	}
+//	
 
 	public void adicionaEndereco( Long idCliente, NovoEnderecoForm enderecoForm) {
-		final Pessoa p; 
-		if(idCliente > 0)
-			p = clienteRepository.findById(idCliente).orElseThrow(() -> new DadosNaoEncontradoException());
-		else 
-			throw new ParametroNaoInformadoException("É obrigatóri que informe o parametro do cliente");
+		final Pessoa p = getCliente(idCliente);; 
 		
 		Endereco e = enderecoForm.toEndereco(p);
 		this.enderecoRepository.save(e);
 	}
-	
-	
+
+	public void removeCliente(Long idCliente) {
+		Pessoa p = this.getCliente(idCliente);
+		this.clienteRepository.delete(p);
+	}
+
 
 }

@@ -1,7 +1,6 @@
 package br.com.gs3.api.dto;
 
 import br.com.gs3.infra.model.Endereco;
-import br.com.gs3.infra.model.Pessoa;
 
 public class EnderecoDTO {
 	

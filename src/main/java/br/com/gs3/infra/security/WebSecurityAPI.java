@@ -55,7 +55,7 @@ public class WebSecurityAPI extends WebSecurityConfigurerAdapter {
 			.roles("USER")
 			.and()
 			.withUser("admin").password(passwordEncode().encode("123456"))
-			.roles("USER", "ADMIN");
+			.roles("ADMIN");
 			
 	}
 	

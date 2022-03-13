@@ -16,12 +16,12 @@ public class ClienteDTO {
 	private List<EmailDTO> listaEmail = new ArrayList<EmailDTO>(); 
 	
 	public ClienteDTO(Pessoa p) {
-		this.id = p.getId();
-		this.nome = p.getNome();
-		this.cpf = p.getCpf().toString();
-		this.endereco = new EnderecoDTO(p.getEndereco());
-		this.listaTelefone = p.getContato().getTelefone().stream().map(TelefoneDTO::new).collect(Collectors.toList());
-		this.listaEmail = p.getContato().getEmail().stream().map(EmailDTO::new).collect(Collectors.toList());
+		id = p.getId();
+		nome = p.getNome();
+		cpf = p.getCpf().toString();
+		listaTelefone = p.getContato().getTelefone().stream().map(TelefoneDTO::new).collect(Collectors.toList());
+		listaEmail = p.getContato().getEmail().stream().map(EmailDTO::new).collect(Collectors.toList());
+		if(p.getEndereco() != null) this.endereco = new EnderecoDTO(p.getEndereco());
 	}
 
 

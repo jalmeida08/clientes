@@ -18,6 +18,12 @@ public class NovoEmailForm {
 		this.email = email;
 	}
 
+	
+	
+	public String getEmail() {
+		return email;
+	}
+
 	@Override
 	public String toString() {
 		return "NovoEmailForm [email=" + email + "]";

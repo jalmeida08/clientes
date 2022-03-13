@@ -25,6 +25,18 @@ public class NovoTelefoneForm {
 		t.setContato(c);
 		return t;
 	}
+	
+	public String getDdd() {
+		return ddd;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public TipoTelefone getTipoTelefone() {
+		return tipoTelefone;
+	}
 
 	public void setDdd(String ddd) {
 		this.ddd = ddd;
