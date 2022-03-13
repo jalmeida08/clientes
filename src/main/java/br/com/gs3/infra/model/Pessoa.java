@@ -14,11 +14,13 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "pessoa")
 @JsonIdentityInfo(scope = Pessoa.class, generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
+@JsonIgnoreProperties(value= {"endereco", "contato"})
 public class Pessoa implements Serializable{
 
 	private static final long serialVersionUID = 560265108780612372L;

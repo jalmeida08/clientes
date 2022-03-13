@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ public class TelefoneController {
 	private TelefoneService telefoneService;
 	
 	@GetMapping("/lista-tipo-telefone")
+	@Secured({"ROLE_USER","ROLE_ADMIN"})
 	public ResponseEntity<?> listaTipoTelefone() {
 		List<TipoTelefoneDTO> recuperaListaTelefone = new TipoTelefoneVO().recuperaListaTelefone();
 		return ResponseEntity.ok(recuperaListaTelefone);
@@ -33,14 +35,16 @@ public class TelefoneController {
 	
 	@PutMapping("/{idTelefone}")
 	@Transactional
+	@Secured({"ROLE_ADMIN"})
 	public ResponseEntity<?> editaTelefone(@PathVariable("idTelefone") Long idTelefone, @RequestBody NovoTelefoneForm telefoneForm) {
 		this.telefoneService.editaTelefone(idTelefone, telefoneForm);
 		return ResponseEntity.ok().build();
 	}
 	
-	@DeleteMapping("/{idTelefone}")
-	public ResponseEntity<?> removeReletone(@PathVariable Long idTelefone){
-		this.telefoneService.removeTelefone(idTelefone);
+	@DeleteMapping("/{idTelefone}/{idCliente}")
+	@Secured({"ROLE_ADMIN"})
+	public ResponseEntity<?> removeReletone(@PathVariable Long idTelefone, @PathVariable Long idCliente){
+		this.telefoneService.removeTelefone(idTelefone, idCliente);
 		return ResponseEntity.ok().build();
 	}
 

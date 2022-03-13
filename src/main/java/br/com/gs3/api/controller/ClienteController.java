@@ -4,7 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +30,7 @@ public class ClienteController {
 
 	@PostMapping
 	@Transactional
+	@Secured({"ROLE_ADMIN"})
 	public ResponseEntity<?> adicionaPessoa(@RequestBody @Valid NovaPessoaForm pessoaForm) {
 		this.clienteService.salvaDadosCliente(pessoaForm);
 		return ResponseEntity.ok().build();
@@ -37,12 +38,14 @@ public class ClienteController {
 	
 	@PostMapping("/{idCliente}/endereco")
 	@Transactional
+	@Secured({"ROLE_ADMIN"})
 	public ResponseEntity<?> adicionaEnderecoCliente(@PathVariable("idCliente") Long idCliente, @RequestBody NovoEnderecoForm enderecoForm) {
 		this.clienteService.adicionaEndereco(idCliente, enderecoForm);
 		return ResponseEntity.ok().build();
 	}
 	
 	@GetMapping
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public ResponseEntity<?> listaDadosCliente(){
 		return ResponseEntity.ok(this.clienteService.listaDadosCliente());
 	}
@@ -53,14 +56,14 @@ public class ClienteController {
 //	}
 	
 	@GetMapping("/{idCliente}")
-	@PreAuthorize(value = "hasRole('ROLE_ADMIN')")
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public ResponseEntity<?> getCliente(@PathVariable("idCliente") Long idCliente){
 		return ResponseEntity.ok(new ClienteDTO(this.clienteService.getCliente(idCliente)));
 	}
 	
 	@DeleteMapping("/{idCliente}")
-	@PreAuthorize(value = "ADMIN")
 	@Transactional
+	@Secured({"ROLE_ADMIN"})
 	public ResponseEntity<?> removeCliente(@PathVariable("idCliente") Long idCliente){
 		this.clienteService.removeCliente(idCliente);
 		return ResponseEntity.ok().build();

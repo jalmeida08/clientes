@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,6 +20,7 @@ import br.com.gs3.infra.service.TokenService;
 
 
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 @Configuration
 public class WebSecurityAPI extends WebSecurityConfigurerAdapter {
 	
@@ -55,7 +57,7 @@ public class WebSecurityAPI extends WebSecurityConfigurerAdapter {
 			.roles("USER")
 			.and()
 			.withUser("admin").password(passwordEncode().encode("123456"))
-			.roles("ADMIN");
+            .roles("USER", "ADMIN");
 			
 	}
 	

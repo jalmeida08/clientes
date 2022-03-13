@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.gs3.api.dto.DadosTokenDTO;
+import br.com.gs3.api.dto.DadosUsuarioDTO;
 import br.com.gs3.api.form.LoginForm;
 import br.com.gs3.infra.exception.FalhaAutenticacaoException;
 import br.com.gs3.infra.service.TokenService;
@@ -34,7 +34,7 @@ public class AuthenticationController {
 		try {
 			Authentication auth =
 					this.authenticationManager.authenticate(loginForm.toConverter());
-			return ResponseEntity.ok(new DadosTokenDTO(this.tokenService.gerarToken(auth)));
+			return ResponseEntity.ok(new DadosUsuarioDTO(this.tokenService.gerarToken(auth), auth.getName(), auth.getAuthorities()));
 		}catch (BadCredentialsException e) {
 			throw new FalhaAutenticacaoException(this.mensagemFalhaAutenticacao);
 		}

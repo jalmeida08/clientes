@@ -7,7 +7,5 @@ import br.com.gs3.infra.model.Pessoa;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Pessoa, Long>{
-	
-	
 
 }

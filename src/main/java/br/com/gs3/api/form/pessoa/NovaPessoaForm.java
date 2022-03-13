@@ -19,20 +19,21 @@ import br.com.gs3.infra.model.Telefone;
 
 public class NovaPessoaForm {
 	
-	@NotBlank @Length(min= 3,  max = 100, message = "Mínimo de 3 e máximo de 100 caracteres")
+	@NotBlank(message = "Nome obrigatório")
+	@Length(min= 3,  max = 100, message = "Nome deve conter no mínimo de 3 e no máximo de 100 caracteres")
 //	@Pattern(regexp = "/[^a-zA-Z 0-9]/g")
 	private String nome;
-	@NotBlank
+	@NotBlank(message = "CPF obrigatório")
 	@CPF(message = "Número de CPF inválido")
 	@Length(message = "CPF INCORRETO")
 	private String cpf;
 
 	private NovoEnderecoForm endereco;
 	
-	@Size(min = 1)
+	@Size(min = 1, message = "É obrigatório o cadatro de pelo menos 1 telefone para contato")
 	private List<NovoTelefoneForm> listaTelefone = new ArrayList<NovoTelefoneForm>();
 	
-	@Size(min = 1)
+	@Size(min = 1, message = "É obrigatório o cadatro de pelo menos 1 e-mail para contato")
 	private List<NovoEmailForm> listaEmail = new ArrayList<NovoEmailForm>();
 	
 	public Pessoa toPessoa() {
