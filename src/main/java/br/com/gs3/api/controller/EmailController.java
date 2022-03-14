@@ -1,5 +1,7 @@
 package br.com.gs3.api.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -24,7 +26,7 @@ public class EmailController {
 	@PutMapping("/{idEmail}")
 	@Transactional
 	@Secured({"ROLE_ADMIN"})
-	public ResponseEntity<?> editaEmail(@PathVariable Long idEmail, @RequestBody NovoEmailForm emailForm) {
+	public ResponseEntity<?> editaEmail(@PathVariable Long idEmail, @RequestBody @Valid NovoEmailForm emailForm) {
 			this.emailService.editaEmail(idEmail, emailForm);
 			return ResponseEntity.ok().build();
 	}

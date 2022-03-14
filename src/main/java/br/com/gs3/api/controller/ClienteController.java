@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gs3.api.dto.ClienteDTO;
 import br.com.gs3.api.form.NovoEnderecoForm;
+import br.com.gs3.api.form.pessoa.EditaPessoaForm;
 import br.com.gs3.api.form.pessoa.NovaPessoaForm;
 import br.com.gs3.api.service.ClienteService;
 
@@ -48,6 +50,14 @@ public class ClienteController {
 	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public ResponseEntity<?> listaDadosCliente(){
 		return ResponseEntity.ok(this.clienteService.listaDadosCliente());
+	}
+	
+	@PutMapping("/{idPessoa}")
+	@Transactional
+	@Secured({"ROLE_ADMIN"})	
+	public ResponseEntity<?> editaCliente(@PathVariable("idPessoa") Long idPessoa, @RequestBody @Valid EditaPessoaForm pessoaForm){
+		this.clienteService.atualizaPessoa(idPessoa, pessoaForm);
+		return ResponseEntity.ok().build();
 	}
 //	
 //	@GetMapping("")

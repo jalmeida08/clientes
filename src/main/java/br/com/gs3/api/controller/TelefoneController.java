@@ -2,6 +2,8 @@ package br.com.gs3.api.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -36,7 +38,7 @@ public class TelefoneController {
 	@PutMapping("/{idTelefone}")
 	@Transactional
 	@Secured({"ROLE_ADMIN"})
-	public ResponseEntity<?> editaTelefone(@PathVariable("idTelefone") Long idTelefone, @RequestBody NovoTelefoneForm telefoneForm) {
+	public ResponseEntity<?> editaTelefone(@PathVariable("idTelefone") Long idTelefone, @RequestBody @Valid NovoTelefoneForm telefoneForm) {
 		this.telefoneService.editaTelefone(idTelefone, telefoneForm);
 		return ResponseEntity.ok().build();
 	}

@@ -10,7 +10,7 @@ import br.com.gs3.infra.model.Pessoa;
 
 public class NovoEnderecoForm {
 	
-	@NotNull @NotBlank(message = "CEP obrigatório") @Length(min=7, max = 7)
+	@NotNull @NotBlank(message = "CEP obrigatório") @Length(min=8, max = 8)
 	private Long cep;
 	@NotBlank(message = "Logradouro obrigatório")
 	private String logradouro;
@@ -34,6 +34,7 @@ public class NovoEnderecoForm {
 		e.setPessoa(p);
 		return e;
 	}
+	
 
 	public void setCep(Long cep) {
 		this.cep = cep;
@@ -58,6 +59,18 @@ public class NovoEnderecoForm {
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
-	
-	
+
+
+	public Endereco atualizaEnderecoCliente(Endereco e, Pessoa p) {
+		e.setCep(this.cep);
+		e.setBairro(this.bairro);
+		e.setCidade(this.cidade);
+		e.setComplemento(this.complemento);
+		e.setLogradouro(this.logradouro);
+		e.setUf(this.uf);
+		e.setPessoa(p);
+		return e;
+	}
+
+
 }

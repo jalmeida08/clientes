@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.gs3.api.dto.ClienteDTO;
 import br.com.gs3.api.form.NovoEnderecoForm;
+import br.com.gs3.api.form.pessoa.EditaPessoaForm;
 import br.com.gs3.api.form.pessoa.NovaPessoaForm;
 import br.com.gs3.infra.exception.DadosNaoEncontradoException;
 import br.com.gs3.infra.exception.ParametroNaoInformadoException;
@@ -57,6 +58,11 @@ public class ClienteService {
 	public void removeCliente(Long idCliente) {
 		Pessoa p = this.getCliente(idCliente);
 		this.clienteRepository.delete(p);
+	}
+
+	public void atualizaPessoa(Long idPessoa, EditaPessoaForm pessoaForm) {
+		Pessoa p = this.getCliente(idPessoa);
+		p = pessoaForm.atualizaDadosCliente(p);
 	}
 
 
