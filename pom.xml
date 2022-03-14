@@ -15,7 +15,7 @@
 	<name>clientes</name>
 	<description>Avaliação de registro de cliente GS3</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
