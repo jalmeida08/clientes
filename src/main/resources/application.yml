@@ -4,7 +4,7 @@ spring:
   datasource:
     driver-class-name: org.h2.Driver
     password: ''
-    url: jdbc:h2:file:~/Documentos/clientes
+    url: jdbc:h2:file:~/clientes
     username: sa
   h2:
     console:

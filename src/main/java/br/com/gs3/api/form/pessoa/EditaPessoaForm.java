@@ -15,7 +15,6 @@ public class EditaPessoaForm {
 	@Length(min= 3,  max = 100, message = "Nome deve conter no mínimo de 3 e no máximo de 100 caracteres")
 	private String nome;
 
-	@Valid
 	private NovoEnderecoForm endereco;
 	
 	

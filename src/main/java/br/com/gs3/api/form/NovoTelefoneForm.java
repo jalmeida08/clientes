@@ -1,6 +1,7 @@
 package br.com.gs3.api.form;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -14,7 +15,7 @@ public class NovoTelefoneForm {
 	private String ddd;
 	@NotBlank @Length(min= 8,  max = 9, message = "Digite um número de telefone válido")
 	private String numero;
-	@NotBlank(message = "Obrigatório a escolha de um tipo de telefone")
+	@NotNull(message = "Obrigatório a escolha de um tipo de telefone")
 	private TipoTelefone tipoTelefone;
 	
 	public Telefone toTelefone(Contato c) {
